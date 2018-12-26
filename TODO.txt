@@ -36,5 +36,6 @@ TODO:
 ( )	A	Create default configuration	+config
 ( )	B	Allow for arbitrary selection of spread via cli args	+opts
 ( )	C	Interactive mode for selecting spread if not specified	+opts +config +interactive
+( )	D	allow customization of card numeration	+config	@card.c:card_numeration_to_str()
 
 vim: set ts=4 sw=4 noexpandtab tw=0:
