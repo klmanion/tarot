@@ -1,0 +1,43 @@
+#-
+# celtic_cross
+# spread file for tarot
+# created by: Kurt L. Manion
+# on: Wed., 26 Dec. 2018
+
+base=16
+
+cluster c1
+{
+    let 3 /
+
+    1+2+3
+}
+
+cluster c2
+{
+      5
+      |
+    6-c1-7
+      |
+      4
+}
+
+cluster c3
+{
+    C
+    \
+     B
+     |
+     A
+     |
+     9
+     |
+     8
+}
+
+spread celtic_cross
+{
+    c2-c3
+}
+
+# vim: set ts=4 sw=4 expandtab tw=79:
