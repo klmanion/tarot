@@ -10,15 +10,6 @@
 #include "deck.h"
 
 typedef
-enum _suit __attribute__((packed)) {
-	major = 0,
-	wands,
-	cups,
-	pentacles,
-	swords
-} suit_t;
-
-typedef
 struct _card {
 	suit_t		 suit;
 	unsigned	 n;
