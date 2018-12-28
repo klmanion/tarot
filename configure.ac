@@ -4,7 +4,7 @@ AC_PREREQ([2.69])
 AC_INIT([tarot], [0.2.0], [klmanion@gmail.com])
 AC_CONFIG_AUX_DIR([config])
 
-AM_INIT_AUTOMAKE([-Wall -pedantic foreign])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
