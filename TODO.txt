@@ -30,7 +30,7 @@ TODO:
 
 ( )	S	Construct grammer for spread files	+spreads
 ( )	S	Get ASCII cards to display	+graphics
-(_)	S	Install Automake
+(x)	S	Install Automake
 (x)	A	Basic functionality of pulling card	+core	@main
 ( )	A	User configuration file	+config
 ( )	A	Create default configuration	+config
