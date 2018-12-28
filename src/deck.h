@@ -12,22 +12,33 @@
 #include <stdlib.h>
 #include "card.h"
 
+typedef
+struct _deck {
+	/* content */
+	card_t 	**cnt;
+	card_t	**head;
 
+	/* flags */
+	bool	major_arcana_only;
+} deck_t;
+#define deck_sz sizeof(deck_t)
 
-typedef card_t * deck_t;
+#define FULL_DECK (MAJOR_ARCANA_SUIT_NUM + (MINOR_ARCANA_SUIT_NUM * 4))
 
 __BEGIN_DECLS
-deck_t* deck_alloc __P((deck_t **));
-deck_t*	deck_init __P((deck_t **));
+deck_t* deck_alloc (deck_t **);
+deck_t*	deck_init (deck_t **);
 
-deck_t*	deck_free __P((deck_t *));
+deck_t*	deck_free (deck_t *);
 
-deck_t*	deck_fill __P((deck_t *const));
-deck_t*	deck_shuffle __P((deck_t *const));
+size_t	deck_card_num (const deck_t *const) __pure;
 
-deck_t*	deck_card_at __P((deck_t *,size_t));
+deck_t*	deck_fill (deck_t *const);
+//deck_t*	deck_shuffle (deck_t *const);
 
-card_t*	deck_draw __P((deck_t *const));
+bool	deck_empty (const deck_t *const) __pure;
+
+card_t*	deck_draw (deck_t *const);
 __END_DECLS
 
 #endif /* !_DECK_H_ */

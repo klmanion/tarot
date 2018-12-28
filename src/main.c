@@ -9,27 +9,33 @@
 #include <stdio.h>
 #include "deck.h"
 
-typedef
-struct _card {
-	suit_t		 suit;
-	unsigned	 n;
-} card_t;
-
-__BEGIN_DECLS
-char*	card_to_str __P((card_t *const));
-__END_DECLS
-
 int
 main(
     int argc,
     char *argv[])
 {
-	deck_t *deck;
+	deck_t *deck = NULL;
 
-	deck_shuffle(deck_init(&deck));
+	deck_fill(deck_init(&deck));
 
-	for (size_t i=0; i<deck_sz; ++i)
-	    printf("%s\n", card_to_str(deck_draw(deck)));
+	for (size_t i=0,num=deck_card_num(deck); i<num; ++i)
+	    {
+		card_t *card;
+		char *s;
+
+		s = card_to_str((card = deck_draw(deck)));
+
+		if (card)
+		    {
+			free(card);
+
+			if (s)
+			    {
+				printf("%zu. %s\n", i+1, s);
+				free(s);
+			    }
+		    }
+	    }
 
 	deck = deck_free(deck);
 

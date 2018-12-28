@@ -7,17 +7,13 @@
 #include "deck.h"
 #include <err.h>
 
-/* the deck_t* pointed to has been allocated */
 deck_t*
 deck_alloc(
     deck_t **ptr)
 {
 	deck_t *deck;
 
-	deck = NULL;
-
-	/* this must be revised when deck_t no longer is a card_t* */ 
-	deck = (deck_t *)malloc(sizeof(card_t)*DECK_FULL_NUM);
+	deck = (deck_t *)malloc(deck_sz);
 	if (!deck)
 	    errx(1,"malloc failure, %s: %d", __FILE__, __LINE__);
 
@@ -28,59 +24,120 @@ deck_t*
 deck_init(
     deck_t **ptr)
 {
-	deck_alloc(ptr);
+	deck_t *deck;
 
-	return deck_fill(*ptr);
+	deck = *ptr;
+
+	if (!deck)
+	    deck = deck_alloc(ptr);
+       
+	deck->head = deck->cnt = NULL;
+
+	deck->major_arcana_only = false;
+
+	return deck;
 }
+
+#ifdef DEBUG
+#include <stdio.h>
+#endif
 
 deck_t*
 deck_free(
     deck_t *deck)
 {
 	if (deck) {
+		if (deck->cnt) {
+			for (card_t **ptr=deck->head; *ptr; ++ptr)
+			    free(*ptr);
+
+			free(deck->cnt);
+		}
+
 		free(deck);
 	}
 
 	return (deck = NULL);
 }
 
+size_t __pure
+deck_card_num(
+    const deck_t *const deck)
+{
+	return deck->major_arcana_only
+		? MAJOR_ARCANA_SUIT_NUM
+		: FULL_DECK;
+}
+
 deck_t*
 deck_fill(
     deck_t *const deck)
 {
+	size_t deck_num;
 	suit_t suit;
-	unsigned ct;
+
+	if (deck->cnt) {
+		for (card_t *ptr=*deck->head; ptr; ++ptr)
+		    free(ptr);
+
+		deck->head = NULL;
+
+		free(deck->cnt);
+	}
+
+	deck_num = deck_card_num(deck);
+
+	deck->cnt = (card_t **)malloc(sizeof(card_t *) * (deck_num+1));
+	if (!deck->cnt)
+	    errx(1,"malloc failure, %s:%d", __FILE__, __LINE__);
 
 	suit = major;
-	ct = 0;
 
-	for (size_t i=0; i<DECK_FULL_NUM; ++i)
+	for (size_t ct=0; ct<deck_num; ++ct)
 	    {
-		if (suit == major)
-		    {
-			card_set(deck_card_at(deck,i), suit, ct);
+		card_t *card;
 
-			/* Major arcana are 0-indexed */
-			if (ct == MAJOR_ARCANA_NUM-1)
-			    {
-				++suit;
-				ct = 1;
-			    }
+		card = deck->cnt[ct] = (card_t *)malloc(card_sz);
+		if (!card)
+		    errx(1,"malloc failure, %s:%d", __FILE__, __LINE__);
+
+		if (ct == MAJOR_ARCANA_SUIT_NUM
+			|| (ct > MAJOR_ARCANA_SUIT_NUM
+			    && (ct-MAJOR_ARCANA_SUIT_NUM) % MINOR_ARCANA_SUIT_NUM == 0))
+		    ++suit;
+
+		card->suit = suit;
+
+		if (suit_is_major_arcana(suit))
+		    {
+			card->n = ct;
 		    }
 		else
 		    {
-			card_set(deck_card_at(deck,i), suit, ct);
-
-			/* Minor arcana are 1-indexed */
-			if (ct == MINOR_ARCANA_NUM)
-			    {
-				++suit;
-				ct = 1;
-			    }
+			card->n = ct - MAJOR_ARCANA_SUIT_NUM;
+			card->n %= MINOR_ARCANA_SUIT_NUM;
+			card->n += 1;
 		    }
 	    }
 
+	deck->head = deck->cnt;
+	deck->cnt[deck_num] = NULL;
+
 	return deck;
+}
+
+bool __pure
+deck_empty(
+    const deck_t *const deck)
+{
+	return !deck->cnt || !deck->head;
+}
+
+card_t* __pure
+deck_draw(
+    deck_t *const deck)
+{
+	return (deck->cnt && deck->head) ? *(deck->head++) : NULL;
 }
 
 /* vim: set ts=8 sw=8 noexpandtab tw=79: */

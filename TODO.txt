@@ -31,7 +31,7 @@ TODO:
 ( )	S	Construct grammer for spread files	+spreads
 ( )	S	Get ASCII cards to display	+graphics
 ( )	S	Install Automake
-(_)	A	Basic functionality of pulling card	+core	@main
+(x)	A	Basic functionality of pulling card	+core	@main
 ( )	A	User configuration file	+config
 ( )	A	Create default configuration	+config
 ( )	B	Allow for arbitrary selection of spread via cli args	+opts
