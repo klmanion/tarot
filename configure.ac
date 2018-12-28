@@ -1,0 +1,28 @@
+## configure.ac
+
+AC_PREREQ([2.69])
+AC_INIT([tarot], [0.2.0], [klmanion@gmail.com])
+AC_CONFIG_AUX_DIR([build-aux])
+
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+
+AM_MAINTAINER_MODE([enable])
+
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_SRCDIR([src/main.c])
+AC_CONFIG_MACRO_DIR([m4])
+
+AC_PROG_CC
+AC_LANG_C
+
+AC_HEADER_STDC
+
+AC_FUNC_MALLOC
+
+AC_CONFIG_FILES([
+  Makefile
+  src/Makefile
+])
+
+AC_OUTPUT
+

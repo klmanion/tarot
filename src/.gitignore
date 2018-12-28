@@ -1,0 +1,7 @@
+# src .gitignore
+
+# C
+*.d
+*.o
+*.dSYM
+*.out
