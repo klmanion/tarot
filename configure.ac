@@ -6,6 +6,8 @@ AC_CONFIG_AUX_DIR([build-aux])
 
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
+AM_MAINTAINER_MODE([enable])
+
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_MACRO_DIR([m4])
