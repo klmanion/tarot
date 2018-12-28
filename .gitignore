@@ -4,6 +4,7 @@ tarot
 
 *.swp
 .deps
+*~
 
 # automake
 Makefile
@@ -15,6 +16,7 @@ Makefile
 /config/**
 !/config/install-sh
 /config.*
+!/config.h.in
 /configure.in
 /depcomp
 /stamp-h1
