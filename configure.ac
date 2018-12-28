@@ -1,6 +1,6 @@
 ## configure.ac
 
-AC_PREREQ([3.69])
+AC_PREREQ([2.69])
 AC_INIT([tarot], [0.2.0], [klmanion@gmail.com])
 AC_CONFIG_AUX_DIR([config])
 
