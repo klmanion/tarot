@@ -13,12 +13,11 @@ Makefile
 /autom4te.cache
 /aclocal.m4
 /compile
-/config/**
-!/config/install-sh
+#/config/**
+#!/config/install-sh
 /config.*
 !/config.h.in
 /configure.in
-/depcomp
 /stamp-h1
 
 # m4
