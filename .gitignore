@@ -6,7 +6,6 @@ tarot
 .deps
 
 # automake
-Makefile.in
 Makefile
 
 # autoconf
@@ -18,7 +17,6 @@ Makefile
 /config.*
 /configure.in
 /depcomp
-/missing
 /stamp-h1
 
 # m4
