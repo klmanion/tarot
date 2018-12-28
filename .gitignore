@@ -3,12 +3,7 @@
 tarot
 
 *.swp
-
-# C
-*.d
-*.o
-*.dSYM
-*.out
+.deps
 
 # automake
 Makefile.in
