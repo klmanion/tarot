@@ -1,0 +1,25 @@
+## configure.ac
+
+AC_PREREQ([3.81])
+AC_INIT([tarot], [0.2.0], [klmanion@gmail.com])
+AC_CONFIG_AUX_DIR([config])
+
+AM_INIT_AUTOMAKE([-Wall -pedantic foreign])
+
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIR([m4])
+
+AC_PROG_CC
+AC_LANG_C
+
+AC_HEADER_STDC
+
+AC_FUNC_MALLOC
+
+AC_CONFIG_FILES([
+  Makefile
+  src/Makefile
+])
+
+AC_OUTPUT
+
